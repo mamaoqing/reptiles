@@ -1,7 +1,7 @@
 package com.mq.pc;
 
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
+//import com.sun.image.codec.jpeg.JPEGCodec;
+//import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
@@ -196,7 +196,7 @@ public class BaiduTieba {
         InputStream is = url.openStream();
         OutputStream os = new FileOutputStream(IMAGE_SAVE_DIRECT + "//" + filePath + "//" + fileName + ".jpg");
         if (addWaterImage) {
-            addWaterImage(url, os);
+//            addWaterImage(url, os);
         }
         if (!addWaterImage) {
             saveImageWithoutWaterImage(is, os);
@@ -215,49 +215,47 @@ public class BaiduTieba {
 
     /***
      * 打印水印
-     * @param sourceImagePath 原图片路径
-     * @param os os
      * @throws Exception e
      */
-    private static void addWaterImage(URL sourceImagePath, OutputStream os) throws Exception {
-        //根据图片路径生成图片对象。获取图片的宽度高度
-        Image image = ImageIO.read(sourceImagePath);
-        int width = image.getWidth(null);
-        int height = image.getHeight(null);
-
-        //根据图片的宽高，生成画布，将原图画到画布
-        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        Graphics2D graphics2d = bufferedImage.createGraphics();
-        graphics2d.drawImage(image, 0, 0, width, height, null);
-
-        //水印图片
-        Image waterImage = ImageIO.read(new File(WATER_IMAGE_PATH));
-        int waterImageWidth = waterImage.getWidth(null);
-        int waterImageHeight = waterImage.getHeight(null);
-
-        //水印透明设置
-        graphics2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, WATER_IMAGE_ALPHA));
-        //旋转 rotate(选中度数，圆心x坐标，圆心y坐标)
-        graphics2d.rotate(Math.toRadians(WATER_IMAGE_RADIANS), bufferedImage.getWidth() >> 1, bufferedImage.getHeight() >> 1);
-
-        // 循环打印水印图片
-        int waterImageX = -width / 2;
-        while (waterImageX < width * 1.5) {
-            int waterImageY = -height / 2;
-            while (waterImageY < height * 1.5) {
-                graphics2d.drawImage(waterImage, waterImageX, waterImageY, null);
-                waterImageY += waterImageHeight + WATER_IMAGE_MARGIN_Y;
-            }
-            waterImageX += waterImageWidth + WATER_IMAGE_MARGIN_X;
-        }
-        graphics2d.dispose();
-
-        //创建图像编码工具类
-        JPEGImageEncoder en = JPEGCodec.createJPEGEncoder(os);
-        //使用图像编码工具类，输出缓存图像到目标文件
-        en.encode(bufferedImage);
-        os.close();
-    }
+//    private static void addWaterImage(URL sourceImagePath, OutputStream os) throws Exception {
+//        //根据图片路径生成图片对象。获取图片的宽度高度
+//        Image image = ImageIO.read(sourceImagePath);
+//        int width = image.getWidth(null);
+//        int height = image.getHeight(null);
+//
+//        //根据图片的宽高，生成画布，将原图画到画布
+//        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+//        Graphics2D graphics2d = bufferedImage.createGraphics();
+//        graphics2d.drawImage(image, 0, 0, width, height, null);
+//
+//        //水印图片
+//        Image waterImage = ImageIO.read(new File(WATER_IMAGE_PATH));
+//        int waterImageWidth = waterImage.getWidth(null);
+//        int waterImageHeight = waterImage.getHeight(null);
+//
+//        //水印透明设置
+//        graphics2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, WATER_IMAGE_ALPHA));
+//        //旋转 rotate(选中度数，圆心x坐标，圆心y坐标)
+//        graphics2d.rotate(Math.toRadians(WATER_IMAGE_RADIANS), bufferedImage.getWidth() >> 1, bufferedImage.getHeight() >> 1);
+//
+//        // 循环打印水印图片
+//        int waterImageX = -width / 2;
+//        while (waterImageX < width * 1.5) {
+//            int waterImageY = -height / 2;
+//            while (waterImageY < height * 1.5) {
+//                graphics2d.drawImage(waterImage, waterImageX, waterImageY, null);
+//                waterImageY += waterImageHeight + WATER_IMAGE_MARGIN_Y;
+//            }
+//            waterImageX += waterImageWidth + WATER_IMAGE_MARGIN_X;
+//        }
+//        graphics2d.dispose();
+//
+//        //创建图像编码工具类
+//        JPEGImageEncoder en = JPEGCodec.createJPEGEncoder(os);
+//        //使用图像编码工具类，输出缓存图像到目标文件
+//        en.encode(bufferedImage);
+//        os.close();
+//    }
 
     public static void main(String[] args) {
         try {
