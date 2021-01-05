@@ -56,13 +56,14 @@ public class pic extends Component {
     private static JTextField t2 = new JTextField(12);
     private static JTextField t1 = new JTextField(12);
     private static JFrame jf = new JFrame("下载图片");
-    private static JLabel jl = new JLabel("数量");
+    private static JLabel jl = new JLabel("数量(默认100)");
     private static JLabel wz = new JLabel("保存位置");
     private static JButton b1 = new JButton("选择保存位置");
     private static JButton b2 = new JButton("开始下载");
     private static String path = null;
     private static JLabel zt = new JLabel("状态");
     private static JTextField t3 = new JTextField(26);
+    private int i = 100;
 
     public pic() {
         init();
@@ -75,6 +76,7 @@ public class pic extends Component {
         jp.add(t1);
         jp.add(jl);
         jp.add(t2);
+        t2.setText("100");
         jp.add(zt);
         jp.add(t3);
 
@@ -82,14 +84,14 @@ public class pic extends Component {
         jp.add(b2);
         jf.add(jp);
         jf.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        jf.setSize(400, 120);
+        jf.setSize(600, 120);
         jf.setLocation(700, 300);
         //显示按钮
         jf.setVisible(true);
 //        Listen l = new Listen();
         jf.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e){
+            public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
         });
@@ -112,15 +114,17 @@ public class pic extends Component {
             public void actionPerformed(ActionEvent e) {
                 path = t1.getText();
                 String text = t2.getText();
-                int i = Integer.parseInt(text);
+                i = Integer.parseInt(text);
                 t3.setText("下载中，请稍等！");
-                if (i > 0 && path != null) {
+                if (i > 0 && path != null && !"".equals(path)) {
                     try {
                         PCUtil.download(i, path);
                         t3.setText("下载完成，请到<" + path + ">下查看");
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "请选择路径!", "错误", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

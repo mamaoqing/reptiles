@@ -23,6 +23,7 @@ public class PCUtil {
         while (count < num) {
             PCUtil.sendGet(imgurl,path);
         }
+        count =0;
     }
 
     public static void main(String[] args) throws IOException {
