@@ -119,7 +119,7 @@ public class BaiduTieba {
      * @return 页面源码内容
      * @throws Exception e
      */
-    private static String getHtmlContent(String url) throws Exception {
+    public static String getHtmlContent(String url) throws Exception {
         //get方式获取页面内容
         HttpGet get = new HttpGet(url);
         get.setConfig(REQUEST_CONFIG);
@@ -195,9 +195,7 @@ public class BaiduTieba {
         URL url = new URL(imageUrl);
         InputStream is = url.openStream();
         OutputStream os = new FileOutputStream(IMAGE_SAVE_DIRECT + "//" + filePath + "//" + fileName + ".jpg");
-        if (addWaterImage) {
-//            addWaterImage(url, os);
-        }
+        //            addWaterImage(url, os);
         if (!addWaterImage) {
             saveImageWithoutWaterImage(is, os);
         }
@@ -261,7 +259,7 @@ public class BaiduTieba {
         try {
             URL_MAP = new HashMap<String, String>();
             String key = "李沁";
-            int maxPage = 1;
+            int maxPage = 5;
             getHttpUrl(key, maxPage, true, false);
         } catch (Exception e) {
             e.printStackTrace();
